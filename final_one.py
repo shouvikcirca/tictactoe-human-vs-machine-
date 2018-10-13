@@ -1,4 +1,5 @@
 import random
+import time
 
 
 collectionOfWinningSequences = []
@@ -8,6 +9,41 @@ collectionOfWinningSequences = []
 
 def playerOneWhileTraining(movestaken):
 
+	ini = [0,3,6]	
+	for i in ini:
+		if movestaken[i]=='-1' and movestaken[i+1]=='-1' and movestaken[i+2]==str(i+2):
+			return str(i+2)
+		elif movestaken[i]==str(i) and movestaken[i+1]=='-1' and movestaken[i+2]=='-1':
+			return str(i)
+		elif movestaken[i]=='-1' and movestaken[i+1]==str(i+1) and movestaken[i+2]=='-1':
+			return str(i+1)
+
+	ini = [0,1,2]
+	for i in ini:
+		if movestaken[i]=='-1' and movestaken[i+3]=='-1' and movestaken[i+6]==str(i+6):
+			return str(i+6)
+		elif movestaken[i]==str(i) and movestaken[i+3]=='-1' and movestaken[i+6]=='-1':
+			return str(i)
+		elif movestaken[i]=='-1' and movestaken[i+1]==str(i+1) and movestaken[i+2]=='-1':
+			return str(i+1)
+
+
+	if movestaken[0]=='-1' and movestaken[4]=='-1' and movestaken[8]=='8':
+		return '8'
+	elif movestaken[0]=='0' and movestaken[4]=='-1' and movestaken[8]=='-1':
+		return '0'
+	elif movestaken[0]=='-1' and movestaken[4]=='4' and movestaken[8]=='-1':
+		return '4'
+
+
+	if movestaken[2]=='-1' and movestaken[4]=='-1' and movestaken[6]=='6':
+		return '6'
+	elif movestaken[2]=='2' and movestaken[4]=='-1' and movestaken[6]=='-1':
+		return '2'
+	elif movestaken[2]=='-1' and movestaken[4]=='4' and movestaken[6]=='-1':
+		return '4'
+
+	#####################################################################################
 	ini = [0,3,6]
 	# print (movestaken)
 	for i in ini:
@@ -29,19 +65,19 @@ def playerOneWhileTraining(movestaken):
 
 
 	if movestaken[0]=='-2' and movestaken[4]=='-2' and movestaken[8]=='8':
-		return str(i+6)
+		return '8'
 	elif movestaken[0]=='0' and movestaken[4]=='-2' and movestaken[8]=='-2':
-		return str(i)
+		return '0'
 	elif movestaken[0]=='-2' and movestaken[4]=='4' and movestaken[8]=='-2':
-		return str(i+1)
+		return '4'
 
 
 	if movestaken[2]=='-2' and movestaken[4]=='-2' and movestaken[6]=='6':
-		return str(i+6)
+		return '6'
 	elif movestaken[2]=='2' and movestaken[4]=='-2' and movestaken[6]=='-2':
-		return str(i)
+		return '2'
 	elif movestaken[2]=='-2' and movestaken[4]=='4' and movestaken[6]=='-2':
-		return str(i+1)
+		return '4'
 
 
 
@@ -134,7 +170,10 @@ def checkStatusTwo(movestaken):
 
 	
 # victory checking will start when this value is 3 for its not possible to win before 3 moves
+
 numberofPlayerOneMoves = 0
+
+a = time.time()
 
 for numberOfGames in range(362880):
 	movestaken = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
@@ -164,10 +203,18 @@ for numberOfGames in range(362880):
 			
 		
 
+print ('{} seconds'.format(time.time()-a))
 
 sortedcollectionOfWinningSequences = sorted(collectionOfWinningSequences,key = lambda x:len(x))
+
+
+
 	
 # print (sortedcollectionOfWinningSequences)
+
+
+
+
 
 
 def moveSearch(sub,i,sortedcollectionOfWinningSequences,movestaken):
@@ -178,6 +225,50 @@ def moveSearch(sub,i,sortedcollectionOfWinningSequences,movestaken):
 	if i == 0:
 		return sortedcollectionOfWinningSequences[0][0]
 	
+
+
+	ini = [0,3,6]
+	
+	for i in ini:
+		if movestaken[i]=='-1' and movestaken[i+1]=='-1' and movestaken[i+2]==str(i+2):
+			return str(i+2)
+		elif movestaken[i]==str(i) and movestaken[i+1]=='-1' and movestaken[i+2]=='-1':
+			return str(i)
+		elif movestaken[i]=='-1' and movestaken[i+1]==str(i+1) and movestaken[i+2]=='-1':
+			return str(i+1)
+
+	ini = [0,1,2]
+	for i in ini:
+		if movestaken[i]=='-1' and movestaken[i+3]=='-1' and movestaken[i+6]==str(i+6):
+			return str(i+6)
+		elif movestaken[i]==str(i) and movestaken[i+3]=='-1' and movestaken[i+6]=='-1':
+			return str(i)
+		elif movestaken[i]=='-1' and movestaken[i+1]==str(i+1) and movestaken[i+2]=='-1':
+			return str(i+1)
+
+
+	if movestaken[0]=='-1' and movestaken[4]=='-1' and movestaken[8]=='8':
+		return '8'
+	elif movestaken[0]=='0' and movestaken[4]=='-1' and movestaken[8]=='-1':
+		return '0'
+	elif movestaken[0]=='-1' and movestaken[4]=='4' and movestaken[8]=='-1':
+		return '4'
+
+
+	if movestaken[2]=='-1' and movestaken[4]=='-1' and movestaken[6]=='6':
+		return '6'
+	elif movestaken[2]=='2' and movestaken[4]=='-1' and movestaken[6]=='-1':
+		return '2'
+	elif movestaken[2]=='-1' and movestaken[4]=='4' and movestaken[6]=='-1':
+		return '4'
+
+
+
+
+	#looking if any trio can be completed (the code above in this function)
+
+
+
 
 	temp = []
 	for i in movestaken:
@@ -207,21 +298,23 @@ def moveSearch(sub,i,sortedcollectionOfWinningSequences,movestaken):
 
 
 	if movestaken[0]=='-2' and movestaken[4]=='-2' and movestaken[8]=='8':
-		return str(i+6)
+		return '8'
 	elif movestaken[0]=='0' and movestaken[4]=='-2' and movestaken[8]=='-2':
-		return str(i)
+		return '0'
 	elif movestaken[0]=='-2' and movestaken[4]=='4' and movestaken[8]=='-2':
-		return str(i+1)
+		return '4'
 
 
 	if movestaken[2]=='-2' and movestaken[4]=='-2' and movestaken[6]=='6':
-		return str(i+6)
+		return '6'
 	elif movestaken[2]=='2' and movestaken[4]=='-2' and movestaken[6]=='-2':
-		return str(i)
+		return '2'
 	elif movestaken[2]=='-2' and movestaken[4]=='4' and movestaken[6]=='-2':
-		return str(i+1)
+		return '4'
 
 
+
+	
 	
 
 
@@ -254,7 +347,7 @@ def asPlayerOne(sortedcollectionOfWinningSequences):
 		movestaken[int(move)] = '-1'
 		numberofMoves +=1	
 		# playSequence = playSequence + str(move)	
-		if numberofPlayerOneMoves >=3:
+		if numberofMoves >=3:
 			winStatus = checkStatusOne(movestaken)
 			if winStatus == 1:
 				# collectionOfWinningSequences.append(playSequence)
