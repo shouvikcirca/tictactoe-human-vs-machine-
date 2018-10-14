@@ -168,50 +168,13 @@ def checkStatusTwo(movestaken):
 
 
 
-	
-# victory checking will start when this value is 3 for its not possible to win before 3 moves
 
-numberofPlayerOneMoves = 0
-
-a = time.time()
-
-for numberOfGames in range(362880):
-	movestaken = ['0', '1', '2', '3', '4', '5', '6', '7', '8']
-	playSequence = ''
-	for i in range(5):
-		move = playerOneWhileTraining(movestaken)
-		if move == 'draw':
-			break
-		movestaken[int(move)] = '-1'
-		numberofPlayerOneMoves +=1	
-		playSequence = playSequence + str(move)	
-		if numberofPlayerOneMoves >=3:
-			winStatus = checkStatusOne(movestaken)
-			if winStatus == 1:
-				collectionOfWinningSequences.append(playSequence)
-				break
-				# print (movestaken)
-
-		
-		move = playerTwo(movestaken)
-		if move == 'draw':
-			break
-		movestaken[int(move)] = '-2'
-		playSequence = playSequence + str(move)	
-		if checkStatusTwo(movestaken) == 1:
-			break
-			
-		
-
-print ('{} seconds'.format(time.time()-a))
-
-sortedcollectionOfWinningSequences = sorted(collectionOfWinningSequences,key = lambda x:len(x))
+#reading the list of winning sequences
+with open('mvseq.py','r') as f:
+	c = f.read()
 
 
-
-	
-# print (sortedcollectionOfWinningSequences)
-
+sortedcollectionOfWinningSequences = c.split('\n')
 
 
 
@@ -223,7 +186,8 @@ def moveSearch(sub,i,sortedcollectionOfWinningSequences,movestaken):
 
 
 	if i == 0:
-		return sortedcollectionOfWinningSequences[0][0]
+		randmove = random.randint(0,len(sortedcollectionOfWinningSequences))
+		return sortedcollectionOfWinningSequences[randmove][0]
 	
 
 
